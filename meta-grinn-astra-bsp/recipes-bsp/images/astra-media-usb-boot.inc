@@ -1,11 +1,11 @@
 # Upstream Synaptics image tasks gates the SL2619 USB image flow on literal
 # shell checks for sl2619usb. Grinn machine name differs, so the checks would
 # fail and the SL2619-specific USB image handling would be skipped. Rewrite the
-# literal at parse time so the gates trip for grinn-astra-2619-sbc-usb.
+# literal at parse time so the gates trip for grinn-astra-2619-som-usb.
 # bb.fatal guards against silent breakage if the sl2619usb literal is ever
 # renamed or removed upstream.
 python () {
-    if d.getVar("MACHINE") != "grinn-astra-2619-sbc-usb":
+    if d.getVar("MACHINE") != "grinn-astra-2619-som-usb":
         return
 
     # The USB image needs the initramfs file, so make sure it is built first.
@@ -31,5 +31,5 @@ python () {
             "'sl2619usb' machine gate - refactor astra-media-usb-boot.inc."
         )
 
-    d.setVar("IMAGE_CMD:synausbimg", deploy_body.replace("sl2619usb", "grinn-astra-2619-sbc-usb"))
+    d.setVar("IMAGE_CMD:synausbimg", deploy_body.replace("sl2619usb", d.getVar("MACHINE")))
 }

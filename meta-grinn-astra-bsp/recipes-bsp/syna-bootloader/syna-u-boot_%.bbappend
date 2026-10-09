@@ -62,10 +62,10 @@ do_deploy:append:grinn-astra-261x-platform() {
 # literal shell check: [ "${MACHINE}" != "sl2619usb" ]. Grinn machine name
 # differs, so the check would pass and the eMMC branch would run, breaking the
 # USB deploy path and manifest generation. Rewrite the literal at parse time so 
-# the gate trips for grinn-astra-2619-sbc-usb. bb.fatal guards against silent 
+# the gate trips for grinn-astra-2619-som-usb. bb.fatal guards against silent 
 # breakage if the sl2619usb literal is ever renamed or removed upstream.
 python () {
-    if d.getVar("MACHINE") != "grinn-astra-2619-sbc-usb":
+    if d.getVar("MACHINE") != "grinn-astra-2619-som-usb":
         return
 
     deploy_body = d.getVar("do_deploy", False)
@@ -75,5 +75,5 @@ python () {
             "'sl2619usb' machine gate - refactor this bbappend."
         )
 
-    d.setVar("do_deploy", deploy_body.replace("sl2619usb", "grinn-astra-2619-sbc-usb"))
+    d.setVar("do_deploy", deploy_body.replace("sl2619usb", d.getVar("MACHINE")))
 }
