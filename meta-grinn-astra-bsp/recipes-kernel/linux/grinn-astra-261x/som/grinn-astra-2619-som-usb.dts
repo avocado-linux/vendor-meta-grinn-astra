@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+/*
+ * Copyright (C) 2026 Grinn sp. z o.o.
+ */
+
+/dts-v1/;
+
+#include "sl2619.dtsi"
+#include "grinn-astra-2619-som.dtsi"
+
+/ {
+	model = "Grinn AstraSOM-2619";
+	compatible = "grinn,grinn-astra-2619-som", "syna,sl2619";
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	/*
+	 * Memory and CMA follow the stb_512m_cma_poky TZK layout, so the same
+	 * image can be used on all SOM memory variants.
+	 */
+	memory {
+		reg = <0x0 0x01500000 0x0 0x1eb00000>;
+	};
+
+	reserved-memory {
+		linux,cma {
+			reg = <0x00 0x18000000 0x00 0x04000000>;
+		};
+	};
+};
+
+&uart0 {
+	status = "okay";
+};
+
+&usb0 {
+	status = "okay";
+	dr_mode = "peripheral";
+};
+
+&usb_phy0 {
+	status = "okay";
+};

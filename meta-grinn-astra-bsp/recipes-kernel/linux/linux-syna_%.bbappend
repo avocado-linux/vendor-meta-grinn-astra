@@ -47,6 +47,10 @@ SRC_URI:append:grinn-astra-2619-som = " \
 	file://grinn-astra-2619-som.dtsi;subdir=${DT_DIR} \
 "
 
+SRC_URI:append:grinn-astra-2619-som-usb = " \
+	file://grinn-astra-2619-som.dtsi;subdir=${DT_DIR} \
+"
+
 GRINN_ASTRA_2619_SBC_COMMON_FILES = " \
 	file://can.cfg \
 	file://bcmdhd.cfg \
