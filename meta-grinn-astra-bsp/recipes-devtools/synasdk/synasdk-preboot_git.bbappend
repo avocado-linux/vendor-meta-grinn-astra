@@ -1,4 +1,5 @@
 FILESEXTRAPATHS:prepend:grinn-astra-2619-sbc := "${THISDIR}/grinn-astra-2619-sbc:"
+FILESEXTRAPATHS:prepend:grinn-astra-2619-som-usb := "${THISDIR}/grinn-astra-261x-som-usb:"
 
 BIN_FILES_DIR = "${S}/boot/mcu/cm52/image/chip/klamath/klamath_rdk/ddr4x16/"
 
