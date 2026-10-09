@@ -1,4 +1,4 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/grinn-astra-2619-sbc:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/grinn-astra-2619-sbc:${THISDIR}/grinn-astra-2619-som-usb:"
 
 GRINN_SYNASDK_CONFIG_NATIVE_DEFCONFIG ?= ""
 
