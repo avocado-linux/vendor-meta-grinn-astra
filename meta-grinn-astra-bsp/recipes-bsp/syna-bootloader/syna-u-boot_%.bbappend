@@ -30,6 +30,11 @@ SRC_URI:append:grinn-astra-2619-som = " \
 	file://memory_1gb.cfg \
 "
 
+SRC_URI:append:grinn-astra-2619-som-usb = " \
+	file://grinn-astra-2619-som.dtsi \
+	file://memory_512mb.cfg \
+"
+
 SRC_URI:append:grinn-astra-2619-sbc = " \
 	file://0001-board-synaptics-klamath-klamath_boardinit-use-default.patch \
 	file://hdmi_disable.cfg \
