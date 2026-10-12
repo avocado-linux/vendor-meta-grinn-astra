@@ -31,6 +31,7 @@ SRC_URI:append:grinn-astra-1680-sbc = " \
 "
 
 SRC_URI:append:grinn-astra-2619-som = " \
+	file://grinn-astra-2619-som.dtsi \
 	file://memory_1gb.cfg \
 "
 
@@ -47,6 +48,7 @@ do_configure:append:grinn-astra-1680-platform() {
 
 do_configure:append:grinn-astra-261x-platform() {
 	cp ${WORKDIR}/${GRINN_MACHINE}.dts ${DT_DIR}/klamath-rdk.dts
+	cp ${WORKDIR}/grinn-astra-2619-som.dtsi ${DT_DIR}
 }
 
 # Generate the manifest for non-USB machines and regenerate the upstream USB

@@ -25,17 +25,12 @@
 
 /dts-v1/;
 
-#include "klamath.dtsi"
+#include "grinn-astra-2619-som.dtsi"
 #include <dt-bindings/gpio/gpio.h>
 
 / {
 	model = "Grinn AstraSBC-2619";
 	compatible = "Synaptics,klamath", "Synaptics,asserial";
-
-	memory {
-		device_type = "memory";
-		reg = <0 0 0 0x20000000>;
-	};
 
 	chosen {
 		stdout-path = &sm_uart0;
@@ -132,16 +127,6 @@
 		groups = "GPIO31", "GPIO32";
 		function = "rgmii";
 	};
-};
-
-&sdhci0 {
-	status = "okay";
-	pad_sn = <10>;
-	pad_sp = <10>;
-	mmc-ddr-1_8v;
-	mmc-hs200-1_8v;
-	mmc-hs400-1_8v;
-	fixed-voltage;
 };
 
 &sm_uart0 {
