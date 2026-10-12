@@ -12,6 +12,10 @@
 		};
 	};
 
+	/*
+	 * U-Boot rewrites the dmabuf_heap, memory and linux,cma regions at boot
+	 * from the TrustZone memory layout, so the values below are placeholders.
+	 */
 	dmabuf_heap {
 		compatible = "syna,berlin-heaps";
 		pool-num = <0>;
