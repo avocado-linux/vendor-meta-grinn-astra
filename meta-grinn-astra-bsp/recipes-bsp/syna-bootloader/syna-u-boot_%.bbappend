@@ -35,6 +35,12 @@ SRC_URI:append:grinn-astra-2619-som-usb = " \
 	file://memory_512mb.cfg \
 "
 
+SRC_URI:append:grinn-astra-2619-som-xspi-usb = " \
+	file://grinn-astra-2619-som-usb.dts \
+	file://grinn-astra-2619-som.dtsi \
+	file://memory_512mb.cfg \
+"
+
 SRC_URI:append:grinn-astra-2619-sbc = " \
 	file://0001-board-synaptics-klamath-klamath_boardinit-use-default.patch \
 	file://hdmi_disable.cfg \
@@ -51,18 +57,25 @@ do_configure:append:grinn-astra-261x-platform() {
 	cp ${WORKDIR}/grinn-astra-2619-som.dtsi ${DT_DIR}
 }
 
+do_configure:append:grinn-astra-2619-som-xspi-usb() {
+	cp ${WORKDIR}/grinn-astra-2619-som-usb.dts ${DT_DIR}
+}
+
 # astra-update selects the USB boot image by the manifest memory_layout. All
-# 261x images are flashed with the 2619 SOM USB boot image, which uses the
+# 261x images are flashed with the 2619 SOM USB boot images, which use the
 # 512 MB layout, so the manifests of all 261x images use the 512mb layout,
-# also for boards with more RAM. The USB boot image uses the sl2610 series
-# chip name, so astra-update can select it for all SL261x chips.
+# also for boards with more RAM. The USB boot images use the sl2610 series
+# chip name, so astra-update can select them for all SL261x chips.
 GRINN_BOOT_MANIFEST_ARGS = "--memory_layout 512mb"
 GRINN_BOOT_MANIFEST_ARGS:append:grinn-astra-2619-som-usb = " --chip sl2610"
+GRINN_BOOT_MANIFEST_ARGS:append:grinn-astra-2619-som-xspi-usb = " --chip sl2610"
 
 # The manifest board name describes the hardware, like in the upstream
-# manifests, so the USB boot image uses the SOM name without the -usb suffix.
+# manifests, so the USB boot images use the SOM name without the -usb suffix.
+# The -xspi suffix shows in the astra-update log which USB boot image is used.
 GRINN_BOOT_MANIFEST_BOARD = "${MACHINE}"
 GRINN_BOOT_MANIFEST_BOARD:grinn-astra-2619-som-usb = "grinn-astra-2619-som"
+GRINN_BOOT_MANIFEST_BOARD:grinn-astra-2619-som-xspi-usb = "grinn-astra-2619-som-xspi"
 
 # Generate the manifest for non-USB machines and regenerate the upstream USB
 # manifest with Grinn board name. Manifest is used by astra-update tool.
