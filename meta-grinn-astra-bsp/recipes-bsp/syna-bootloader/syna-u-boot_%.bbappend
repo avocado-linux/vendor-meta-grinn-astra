@@ -59,6 +59,11 @@ do_configure:append:grinn-astra-261x-platform() {
 GRINN_BOOT_MANIFEST_ARGS = "--memory_layout 512mb"
 GRINN_BOOT_MANIFEST_ARGS:append:grinn-astra-2619-som-usb = " --chip sl2610"
 
+# The manifest board name describes the hardware, like in the upstream
+# manifests, so the USB boot image uses the SOM name without the -usb suffix.
+GRINN_BOOT_MANIFEST_BOARD = "${MACHINE}"
+GRINN_BOOT_MANIFEST_BOARD:grinn-astra-2619-som-usb = "grinn-astra-2619-som"
+
 # Generate the manifest for non-USB machines and regenerate the upstream USB
 # manifest with Grinn board name. Manifest is used by astra-update tool.
 do_deploy:append:grinn-astra-261x-platform() {
@@ -66,7 +71,7 @@ do_deploy:append:grinn-astra-261x-platform() {
 		--uboot_binary ${B}/../../uboot_en.bin \
 		--sdk_config ${STAGING_DATADIR_NATIVE}/syna/build/.config \
 		--uboot_config ${B}/.config \
-		--board ${MACHINE} \
+		--board ${GRINN_BOOT_MANIFEST_BOARD} \
 		${GRINN_BOOT_MANIFEST_ARGS} \
 		--output ${WORKDIR}/manifest.yaml
 	install -m 0644 ${WORKDIR}/manifest.yaml ${DEPLOYDIR}/manifest.yaml
