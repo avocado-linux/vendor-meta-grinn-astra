@@ -31,11 +31,13 @@ SRC_URI:append:grinn-astra-2619-som = " \
 "
 
 SRC_URI:append:grinn-astra-2619-som-usb = " \
+	file://0001-arm-mach-synaptics-keep-20-MiB-free-for-small-heaps.patch \
 	file://grinn-astra-2619-som.dtsi \
 	file://memory_512mb.cfg \
 "
 
 SRC_URI:append:grinn-astra-2619-som-xspi-usb = " \
+	file://0001-arm-mach-synaptics-keep-20-MiB-free-for-small-heaps.patch \
 	file://grinn-astra-2619-som-usb.dts \
 	file://grinn-astra-2619-som.dtsi \
 	file://memory_512mb.cfg \

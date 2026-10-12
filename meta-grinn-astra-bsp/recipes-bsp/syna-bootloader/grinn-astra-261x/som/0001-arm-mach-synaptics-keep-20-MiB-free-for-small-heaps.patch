@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lukasz Madej <l.madej@grinn-global.com>
+Date: Mon, 12 Oct 2026 12:00:00 +0200
+Subject: [PATCH] arm: mach-synaptics: keep 20 MiB free for small heaps
+
+get_max_malloc_size() is used as the size of the image buffer in
+img2sd/l2emmc. For heaps up to 400 MB only 10 MiB are kept free, but
+the sparse image writer allocates an 8 MiB bounce buffer for each RAW
+chunk next to the image buffer. With the 96 MB heap of the 512 MB
+memory layout this allocation failed ("Malloc failed for:
+CHUNK_TYPE_RAW"), so sparse images could not be written.
+
+20 MiB are now kept free for heaps up to 400 MB. Larger heaps are not
+changed.
+---
+ arch/arm/mach-synaptics/misc.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/mach-synaptics/misc.c b/arch/arm/mach-synaptics/misc.c
+index 870ba14..c39fb08 100644
+--- a/arch/arm/mach-synaptics/misc.c
++++ b/arch/arm/mach-synaptics/misc.c
+@@ -146,8 +146,12 @@ unsigned int get_max_malloc_size(void)
+ 	if (max_size > (400 << 20)) // > 400MB
+ 		return (max_size - (40 << 20));
+ 
+-	//don't hope to come here
+-	return (max_size - (10 << 20));
++	/*
++	 * Small heaps, e.g. with the 512 MB memory layout. The sparse image
++	 * writer allocates an 8 MiB bounce buffer (FASTBOOT_MAX_BLK_WRITE
++	 * blocks) next to the image buffer, so 10 MiB free heap is not enough.
++	 */
++	return (max_size - (20 << 20));
+ }
+ 
+ int is_valid_dtbo_string(const char *s)
+-- 
+2.47.3
