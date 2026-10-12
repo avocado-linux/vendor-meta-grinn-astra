@@ -77,6 +77,18 @@ GRINN_BOOT_MANIFEST_BOARD = "${MACHINE}"
 GRINN_BOOT_MANIFEST_BOARD:grinn-astra-2619-som-usb = "grinn-astra-2619-som"
 GRINN_BOOT_MANIFEST_BOARD:grinn-astra-2619-som-xspi-usb = "grinn-astra-2619-som-xspi"
 
+# Both USB boot images match the manifests of the 261x flash images, so the
+# image to use is given by its id in the boot_image field of the flash image
+# manifest. The USB boot images use the machine name as the id, and the 261x
+# flash images use the USB boot image without XSPI. An XSPI flash image has to
+# set boot_image to grinn-astra-2619-som-xspi-usb.
+GRINN_BOOT_MANIFEST_ID = ""
+GRINN_BOOT_MANIFEST_ID:grinn-astra-2619-som-usb = "${MACHINE}"
+GRINN_BOOT_MANIFEST_ID:grinn-astra-2619-som-xspi-usb = "${MACHINE}"
+GRINN_BOOT_MANIFEST_BOOT_IMAGE = "grinn-astra-2619-som-usb"
+GRINN_BOOT_MANIFEST_BOOT_IMAGE:grinn-astra-2619-som-usb = ""
+GRINN_BOOT_MANIFEST_BOOT_IMAGE:grinn-astra-2619-som-xspi-usb = ""
+
 # Generate the manifest for non-USB machines and regenerate the upstream USB
 # manifest with Grinn board name. Manifest is used by astra-update tool.
 do_deploy:append:grinn-astra-261x-platform() {
@@ -87,6 +99,12 @@ do_deploy:append:grinn-astra-261x-platform() {
 		--board ${GRINN_BOOT_MANIFEST_BOARD} \
 		${GRINN_BOOT_MANIFEST_ARGS} \
 		--output ${WORKDIR}/manifest.yaml
+	if [ -n "${GRINN_BOOT_MANIFEST_ID}" ]; then
+		sed -i "s/^id: .*/id: ${GRINN_BOOT_MANIFEST_ID}/" ${WORKDIR}/manifest.yaml
+	fi
+	if [ -n "${GRINN_BOOT_MANIFEST_BOOT_IMAGE}" ]; then
+		echo "boot_image: ${GRINN_BOOT_MANIFEST_BOOT_IMAGE}" >> ${WORKDIR}/manifest.yaml
+	fi
 	install -m 0644 ${WORKDIR}/manifest.yaml ${DEPLOYDIR}/manifest.yaml
 }
 
