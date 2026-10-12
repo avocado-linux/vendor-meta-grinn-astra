@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+/*
+ * Copyright (C) 2026 Grinn sp. z o.o.
+ */
+
+/dts-v1/;
+
+#include "grinn-astra-2619-som-usb.dts"
+
+&sm_pinctrl {
+	xspi0_pmux: xspi0-pmux {
+		groups = "SM_GPIO18", "SM_GPIO19", "SM_GPIO20", "SM_GPIO21",
+			 "SM_GPIO22", "SM_GPIO23";
+		function = "xspi";
+	};
+};
+
+&xspi0 {
+	status = "okay";
+	pinctrl-0 = <&xspi0_pmux>;
+	pinctrl-names = "default";
+
+	flash@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		spi-max-frequency = <10000000>;
+	};
+};
