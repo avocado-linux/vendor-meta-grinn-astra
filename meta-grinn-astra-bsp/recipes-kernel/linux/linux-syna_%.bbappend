@@ -67,6 +67,7 @@ GRINN_ASTRA_2619_SBC_COMMON_FILES = " \
 	file://ov5647-camera-overlay.dtso;subdir=${DT_DIR} \
 	file://spi.cfg \
 	file://waveshare-7inch-panel-overlay.dtso;subdir=${DT_DIR} \
+	file://waveshare-10inch-panel-overlay.dtso;subdir=${DT_DIR} \
 "
 
 SRC_URI:append:grinn-astra-261x-sbc = "${GRINN_ASTRA_2619_SBC_COMMON_FILES}"
