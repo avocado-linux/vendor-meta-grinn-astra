@@ -59,6 +59,10 @@ stages:
           - default:deepx
           - default:deepx:demo
       - KAS_MACHINE:
+          - grinn-astra-2619-sbc
+        KAS_CONFIG:
+          - default:ram-2gb
+      - KAS_MACHINE:
           - sl2619-coralboard
         KAS_CONFIG:
           - default:oobe
