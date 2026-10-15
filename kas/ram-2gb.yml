@@ -1,0 +1,8 @@
+header:
+  version: 14
+
+local_conf_header:
+  # Keep the append unconditional. Native recipes clear MACHINEOVERRIDES, so a
+  # machine-specific append does not reach synasdk-config-native.
+  ram-2gb: |
+    MACHINE_FEATURES:append = " ram-2gb"
