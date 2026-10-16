@@ -1,3 +1,19 @@
+# [4.2.0]
+
+## Added
+- 2 GB RAM variant of `grinn-astra-2619-sbc` (`kas/ram-2gb.yml`)
+- AP12612X M.2 Wi-Fi card on `grinn-astra-1680-sbc` and `grinn-astra-2619-sbc`
+- `grinn-astra-2619-som-usb` and `grinn-astra-2619-som-xspi-usb` USB boot
+  images for all AstraSOM-261x boards
+
+## Changed
+- USB flashing of `grinn-astra-2619-sbc` images requires `grinn-astra-update` v4.2.0
+  or newer; use `grinn-astra-update` v4.0.0 for 4.1.0 and older images
+
+## Removed
+- `grinn-astra-2619-sbc-usb`, replaced by `grinn-astra-2619-som-usb`
+- SWUpdate integration and rescue mode
+
 # [4.1.0]
 
 ## Added
